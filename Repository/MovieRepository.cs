@@ -15,24 +15,29 @@ namespace MovieAppApi.Repository{
             string query = $"SELECT * FROM Movie JOIN Director ON Movie.director_id = Director.id ORDER BY ReleaseYear DESC LIMIT {amount}";
             DataTable movieTable = dataProvider.GetDataTable(query);
             foreach(DataRow movieRow in movieTable.Rows){
-                Movie movie = new Movie(
-                    int.Parse(movieRow[0].ToString()),
-                    new Director(int.Parse(movieRow[10].ToString()), movieRow[11].ToString()),
-                    movieRow[2].ToString(),
-                    movieRow[3].ToString(),
-                    movieRow[4].ToString(),
-                    int.Parse(movieRow[5].ToString()),
-                    movieRow[6].ToString(),
-                    float.Parse(movieRow[7].ToString()),
-                    movieRow[8].ToString(),
-                    int.Parse(movieRow[9].ToString())
-                );
-                movie.ListGenre = GetGenreList(movie);
-                movie.ListActor = GetActorList(movie);
+                Movie movie = createMovieFromDataRow(movieRow);
                 listNewestMovie.Add(movie);
             }
 
             return listNewestMovie;
+        }
+        private Movie createMovieFromDataRow(DataRow movieRow){
+            Movie movie = new Movie(
+                int.Parse(movieRow[0].ToString()),
+                new Director(int.Parse(movieRow[10].ToString()), movieRow[11].ToString()),
+                movieRow[2].ToString(),
+                movieRow[3].ToString(),
+                movieRow[4].ToString(),
+                int.Parse(movieRow[5].ToString()),
+                movieRow[6].ToString(),
+                float.Parse(movieRow[7].ToString()),
+                movieRow[8].ToString(),
+                int.Parse(movieRow[9].ToString())
+            );
+            movie.ListGenre = GetGenreList(movie);
+            movie.ListActor = GetActorList(movie);
+
+            return movie;
         }
         private List<Genre> GetGenreList(Movie movie){
             List<Genre> listGenre = new List<Genre>();
@@ -62,6 +67,17 @@ namespace MovieAppApi.Repository{
             }
 
             return listActor;
+        }
+        public List<Movie> GetListMovieByGenre(Genre genre){
+            List<Movie> listMovie = new List<Movie>();
+            string query = $"SELECT Movie.*, Director.* FROM Movie JOIN MovieGenre ON Movie.id = MovieGenre.movie_id JOIN Director ON Movie.id = Director.id WHERE MovieGenre.genre_id = {genre.Id}";
+            DataTable movieTable = dataProvider.GetDataTable(query);
+            foreach(DataRow movieRow in movieTable.Rows){
+                Movie movie = createMovieFromDataRow(movieRow);
+                listMovie.Add(movie);
+            }
+
+            return listMovie;
         }
     }
 }

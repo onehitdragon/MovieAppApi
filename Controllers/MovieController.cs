@@ -17,5 +17,12 @@ namespace MovieAppApi.Controllers{
             
             return Json(listNewestMovie);
         }
+        [Route("ListMovieByGenre")]
+        public IActionResult ListMovieByGenre(int idGenre){
+            Genre genre = new Genre(idGenre);
+            List<Movie> listMovie = movieRepository.GetListMovieByGenre(genre);
+            
+            return Json(listMovie);
+        } 
     }
 }

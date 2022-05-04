@@ -18,6 +18,9 @@ namespace MovieAppApi.Model{
                 name = value;
             }
         }
+        public Genre(int id){
+            this.id = id;
+        }
         public Genre(int id, string name){
             this.id = id;
             this.name = name;
