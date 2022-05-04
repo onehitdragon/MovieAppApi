@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace MovieAppApi
 {
@@ -40,7 +42,13 @@ namespace MovieAppApi
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "UserData")),
+                RequestPath = "/UserData"
+            });
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
