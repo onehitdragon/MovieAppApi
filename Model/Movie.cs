@@ -6,6 +6,7 @@ namespace MovieAppApi.Model{
         private Director director;
         private List<Actor> listActor;
         private List<Genre> listGenre;
+        private List<Episode> listEpisode;
         private string title;
         private string engTitle;
         private string avatarUrl;
@@ -44,6 +45,14 @@ namespace MovieAppApi.Model{
             }
             set{
                 listGenre = value;
+            }
+        }
+        public List<Episode> ListEpisode{
+            get{
+                return listEpisode;
+            }
+            set{
+                listEpisode = value;
             }
         }
         public string Title{

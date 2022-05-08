@@ -90,17 +90,17 @@ namespace MovieAppApi.DataBase{
             // init actor data
             query = "SELECT * FROM Actor";
             if(dataProvider.GetDataTable(query).Rows.Count == 0){
-                query = "INSERT INTO Actor(FullName) VALUES ('Lee Soon-jae');"
-                + "INSERT INTO Actor(FullName) VALUES ('Jung Il-woo');"
-                + "INSERT INTO Actor(FullName) VALUES ('Seo Min-jung');"
-                + "INSERT INTO Actor(FullName) VALUES ('Kim Bum');"
-                + "INSERT INTO Actor(FullName) VALUES ('Park Min-young');"
-                + "INSERT INTO Actor(FullName) VALUES ('Tobin Bell');"
-                + "INSERT INTO Actor(FullName) VALUES ('Cary Elwes');"
-                + "INSERT INTO Actor(FullName) VALUES ('Leigh Whannell');"
-                + "INSERT INTO Actor(FullName) VALUES ('Tom Holland');"
-                + "INSERT INTO Actor(FullName) VALUES ('Willem Dafoe');"
-                + "INSERT INTO Actor(FullName) VALUES ('Andrew Garfield');";
+                query = "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/sonjea.jpg', 'Lee Soon-jae');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/junho.jpg', 'Jung Il-woo');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/seomin.jpg', 'Seo Min-jung');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/kimbum.jpg', 'Kim Bum');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/parkmin.jpg', 'Park Min-young');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/tobinbell.jpg', 'Tobin Bell');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/carl.jpg', 'Cary Elwes');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/leighwhannell.jpg', 'Leigh Whannell');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/tom.jpg', 'Tom Holland');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/wellemdafoe.jpg', 'Willem Dafoe');"
+                + "INSERT INTO Actor(AvatarUrl, FullName) VALUES ('/UserData/ActorAvatar/AndrewGarfield.jpg', 'Andrew Garfield');";
             }
             dataProvider.ExcuteQuery(query);
 
@@ -170,7 +170,10 @@ namespace MovieAppApi.DataBase{
                 + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (5, 7);"
                 + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (5, 8);"
                 + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (6, 7);"
-                + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (6, 8);";
+                + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (6, 8);"
+                + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (7, 3);"
+                + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (7, 2);"
+                + "INSERT INTO MovieGenre(Movie_Id, Genre_Id) VALUES (7, 7);";
                 dataProvider.ExcuteQuery(query);
             }
 
@@ -203,6 +206,39 @@ namespace MovieAppApi.DataBase{
                 + "INSERT INTO MovieActor(Movie_Id, Actor_Id) VALUES (6, 3);"
                 + "INSERT INTO MovieActor(Movie_Id, Actor_Id) VALUES (6, 4);"
                 + "INSERT INTO MovieActor(Movie_Id, Actor_Id) VALUES (6, 5);";
+                dataProvider.ExcuteQuery(query);
+            }
+
+            // create episode table
+            query = "CREATE TABLE IF NOT EXISTS Episode("
+            + "Movie_Id INT,"
+            + "Number INT,"
+            + "SourceUrl text,"
+            + "FOREIGN KEY (Movie_Id) REFERENCES Movie(id)"
+            + ")";
+            dataProvider.ExcuteQuery(query);
+
+            // init episode data
+            query = "SELECT * FROM Episode";
+            if(dataProvider.GetDataTable(query).Rows.Count == 0){
+                query = "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (1, 1, '/UserData/MovieSource/SpiderMan/SPIDERMANNOWAYHOMEOfficialTrailerHD.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (2, 1, '/UserData/MovieSource/Saw/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (3, 1, '/UserData/MovieSource/Saw/2.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (4, 1, '/UserData/MovieSource/Saw/3.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 1, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 2, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 3, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 4, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 5, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 6, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (5, 7, '/UserData/MovieSource/Conan/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (6, 1, '/UserData/MovieSource/highkick1/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (6, 2, '/UserData/MovieSource/highkick1/2.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (6, 3, '/UserData/MovieSource/highkick1/3.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (6, 4, '/UserData/MovieSource/highkick1/4.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (7, 1, '/UserData/MovieSource/SuperDragonBallsHeroesBigBangMission/1.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (7, 2, '/UserData/MovieSource/SuperDragonBallsHeroesBigBangMission/2.mp4');"
+                + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (7, 3, '/UserData/MovieSource/SuperDragonBallsHeroesBigBangMission/3.mp4');";
                 dataProvider.ExcuteQuery(query);
             }
         }

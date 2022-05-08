@@ -36,6 +36,7 @@ namespace MovieAppApi.Repository{
             );
             movie.ListGenre = GetGenreList(movie);
             movie.ListActor = GetActorList(movie);
+            movie.ListEpisode = GetListEpisode(movie);
 
             return movie;
         }
@@ -67,6 +68,20 @@ namespace MovieAppApi.Repository{
             }
 
             return listActor;
+        }
+        private List<Episode> GetListEpisode(Movie movie){
+            List<Episode> listEpisode = new List<Episode>();
+            string query = $"SELECT * FROM Episode WHERE Movie_id = {movie.Id}";
+            DataTable episodeTable = dataProvider.GetDataTable(query);
+            foreach(DataRow episodeRow in episodeTable.Rows){
+                Episode episode = new Episode(
+                    int.Parse(episodeRow[1].ToString()),
+                    episodeRow[2].ToString()
+                );
+                listEpisode.Add(episode);
+            }
+
+            return listEpisode;
         }
         public List<Movie> GetListMovieByGenre(Genre genre){
             List<Movie> listMovie = new List<Movie>();
