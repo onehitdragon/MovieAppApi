@@ -23,6 +23,15 @@ namespace MovieAppApi.Controllers{
             List<Movie> listMovie = movieRepository.GetListMovieByGenre(genre);
             
             return Json(listMovie);
+        }
+        [Route("Search")]
+        public IActionResult Search(string key){
+            if(String.IsNullOrEmpty(key)){
+                return Json(new List<Movie>());
+            }
+            List<Movie> listResult = movieRepository.Search(key);
+            
+            return Json(listResult);
         } 
     }
 }

@@ -94,5 +94,16 @@ namespace MovieAppApi.Repository{
 
             return listMovie;
         }
+        public List<Movie> Search(string key){
+            List<Movie> listResult = new List<Movie>();
+            string query = $"SELECT * FROM Movie JOIN Director ON Movie.director_id = Director.id WHERE LOWER(title) LIKE LOWER('%{key}%') OR LOWER(engtitle) LIKE LOWER('%{key}%')";
+            DataTable movieTable = dataProvider.GetDataTable(query);
+            foreach(DataRow movieRow in movieTable.Rows){
+                Movie movie = createMovieFromDataRow(movieRow);
+                listResult.Add(movie);
+            }
+
+            return listResult;
+        }
     }
 }
