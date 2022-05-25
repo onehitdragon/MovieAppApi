@@ -39,5 +39,17 @@ namespace MovieAppApi.Controllers{
             Console.WriteLine(user.BirthDay.ToString());
             accountRepository.AddUser(user);
         }
+
+        [Route("GetUser")]
+        public IActionResult GetUser(string email){
+            User user = accountRepository.GetUser(email);
+            return Json(user);
+        }
+
+        [Route("ChangePassword")]
+        [HttpPost]
+        public void ChangePassword(string email, string newPassword){
+            accountRepository.UpdatePassword(email, newPassword);
+        }
     }
 }
