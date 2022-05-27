@@ -241,6 +241,15 @@ namespace MovieAppApi.DataBase{
                 + "INSERT INTO Episode(Movie_Id, Number, SourceUrl) VALUES (7, 3, '/UserData/MovieSource/SuperDragonBallsHeroesBigBangMission/3.mp4');";
                 dataProvider.ExcuteQuery(query);
             }
+
+            // create episode table
+            query = "CREATE TABLE IF NOT EXISTS FeedBack("
+            + "User_Id INT,"
+            + "Content text,"
+            + "TimeCreated timestamp,"
+            + "FOREIGN KEY (User_Id) REFERENCES Users(id)"
+            + ")";
+            dataProvider.ExcuteQuery(query);
         }
         public void Drop(){
             string query = "DROP DATABASE IF EXISTS movieapp";

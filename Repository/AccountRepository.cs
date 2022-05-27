@@ -30,13 +30,14 @@ namespace MovieAppApi.Repository{
             dataProvider.ExcuteQuery(query);
         }
         public User GetUser(string email){
-            string query = $"SELECT lastName, firstName, birthDay, Gender FROM Users WHERE email = '{email}'";
+            string query = $"SELECT lastName, firstName, birthDay, Gender, id FROM Users WHERE email = '{email}'";
             DataTable userTable = dataProvider.GetDataTable(query);
             if(userTable.Rows.Count == 0) return null;
             DataRow userRow = userTable.Rows[0];
             DateTime birthDay = DateTime.Parse(userRow[2].ToString());
             bool gender = int.Parse(userRow[3].ToString()) == 1 ? true : false;
             User user = new User("", "", userRow[0].ToString(), userRow[1].ToString(), birthDay, gender);
+            user.Id = int.Parse(userRow[4].ToString());
 
             return user;
         }

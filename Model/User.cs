@@ -2,10 +2,19 @@ using System;
 
 namespace MovieAppApi.Model{
     public class User : Account{
+        private int id;
         private string lastName;
         private string firstName;
         private DateTime birthDay;
         private bool gender;
+        public int Id{
+            get{
+                return id;
+            }
+            set{
+                id = value;
+            }
+        }
         public string LastName{
             get{
                 return lastName;
